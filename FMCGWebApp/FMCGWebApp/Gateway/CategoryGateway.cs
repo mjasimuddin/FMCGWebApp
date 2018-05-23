@@ -12,7 +12,7 @@ namespace FMCGWebApp.Gateway
     public class CategoryGateway
     {
         private SqlConnection _connection = new SqlConnection(
-            WebConfigurationManager.ConnectionStrings["LeaveManagementDb"].ConnectionString);
+            WebConfigurationManager.ConnectionStrings["FMCGDB"].ConnectionString);
         public int SaveCategory(Category category)
         {
             string query = @"INSERT INTO [dbo].[tb_Category]

@@ -1,0 +1,194 @@
+﻿@model FMCGWebApp.Models.Employee
+@{
+    ViewBag.Title = "AddEmployee";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    label.error {
+        color: red;
+        font-style: italic;
+    }
+</style>
+
+
+<div id="page-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="fBody">
+                    <h3 style="text-align: center">New Employee Entry</h3>
+
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { name = "EmployeeEntryValidation", id = "EmployeeEntryValidation" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowEmployeeName" class="control-label"></label>
+                                    <input type="text" id="EmployeeName" name="EmployeeName" class="form-control" placeholder="Please Type Employee Name" />
+                                    @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowFatherName" class="control-label"></label>
+                                    <input type="text" id="FatherName" name="FatherName" class="form-control" placeholder="Please Type Father Name" />
+                                    @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowMotherName" class="control-label"></label>
+                                    <input type="text" id="MotherName" name="MotherName" class="form-control" placeholder="Please Type Mother Name" />
+                                    @Html.ValidationMessageFor(model => model.MotherName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowGenderId" class="control-label"></label>
+                                    <select name="GenderId" id="GenderId" class="form-control">
+                                        <option value="">--Select Gender--</option>
+                                        @foreach (var gender in ViewBag.gender)
+                                        {
+                                            <option value="@gender.Id">@gender.GenderName</option>
+                                        }
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.GenderId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowEmail" class="control-label"></label>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Email" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowNationalIdNumber" class="control-label"></label>
+                                    <input type="text" id="NationalIdNumber" name="NationalIdNumber" class="form-control" placeholder="Please Type NationalIdNumber" />
+                                    @Html.ValidationMessageFor(model => model.NationalIdNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowPhoneNumber" class="control-label"></label>
+                                    <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" placeholder="Please Type Phone Number" />
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowAddress" class="control-label"></label>
+                                    <textarea id="Address" name="Address" class="form-control" placeholder="Please Type Address"></textarea>
+                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label id="submit" class="control-label"></label>
+                                    <button type="submit" class="btn btn-success btn-block" name="btn" @*onclick="submit()"*@>Save</button>
+                                </div>
+                            </div>
+                            @if (ViewBag.ShowMsg != null)
+                            {
+                                <script type="text/javascript">
+                                    window.onload = Function()
+                                    {
+                                        alert("@ViewBag.ShowMsg");
+                                    };
+                                </script>
+                            }
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @*<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>*@
+    
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#EmployeeEntryValidation").validate({
+                rules: {
+                    EmployeeName: "required",
+                    FatherName: "required",
+                    MotherName: "required",
+                    GenderId: "required",
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    NationalIdNumber: "required",
+                    PhoneNumber: "required",
+                    Address: "required"
+
+                },
+                messages: {
+                    EmployeeName: "Please Provide Employee Name",
+                    FatherName: "Please Provide Father Name",
+                    MotherName: "Please Provide Mother Name",
+                    GenderId: "Please Select Gender",
+                    Email: {
+                        required: "Please provide Email",
+                        email: "Please enter a valid Email"
+                    },
+                    NationalIdNumber: "Please provide NID Number",
+                    PhoneNumber: "Please provide Phone number",
+                    Address: "Please proved Address"
+                }
+            });
+
+            $("#EmployeeName").click(function () {
+                $("#ShowEmployeeName").text("Employee Name");
+            });
+            $("#FatherName").click(function () {
+                $("#ShowFatherName").text("Father's Name");
+            });
+            $("#MotherName").click(function () {
+                $("#ShowMotherName").text("Mother's Name");
+            });
+            $("#GenderId").click(function () {
+                $("#ShowGenderId").text("Gender");
+            });
+            $("#Email").click(function () {
+                $("#ShowEmail").text("Email");
+            });
+            $("#NationalIdNumber").click(function () {
+                $("#ShowNationalIdNumber").text("National Id Number(Optional)");
+            });
+            $("#PhoneNumber").click(function () {
+                $("#ShowPhoneNumber").text("Phone Number");
+            });
+            $("#Address").click(function () {
+                $("#ShowAddress").text("Address");
+            });
+        });
+
+    </script>
+}
+
