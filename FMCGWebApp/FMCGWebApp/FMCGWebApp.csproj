@@ -124,14 +124,17 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Gateway\CategoryGateway.cs" />
     <Compile Include="Gateway\EmployeeGateway.cs" />
+    <Compile Include="Gateway\WhouseinfoGateway.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Manager\CategoryManager.cs" />
     <Compile Include="Manager\EmployeeManager.cs" />
+    <Compile Include="Manager\WhouseinfoManager.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\W_h_info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +173,7 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\SaveCategory.cshtml" />
     <Content Include="Views\Admin\AddEmployee.cshtml" />
+    <Content Include="Views\Admin\SaveWhouse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
