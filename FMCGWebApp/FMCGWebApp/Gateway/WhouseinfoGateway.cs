@@ -9,16 +9,19 @@ using FMCGWebApp.Models;
 
 namespace FMCGWebApp.Gateway
 {
-    public class CategoryGateway
+    public class WhouseinfoGateway
     {
         private SqlConnection _connection = new SqlConnection(
-            WebConfigurationManager.ConnectionStrings["FMCG_Db"].ConnectionString);
-        public int SaveCategory(Category category)
+    WebConfigurationManager.ConnectionStrings["FMCG_Db"].ConnectionString);
+        public int SaveWhouse(W_h_info wHInfo)
         {
-            string query = @"INSERT INTO [dbo].[tb_Category]
-           ([CategoryName])
+            string query = @"INSERT INTO [dbo].[tb_WH_Info]
+           ([WhName]
+           ,[Location]
+           ,[Capacity]
+           ,[EmployeeId])
      VALUES
-           ('" + category.CategoryName + "')";
+           ('" + wHInfo.WhName + "', '" + wHInfo.Location + "', '" + wHInfo.Capacity + "', '" + wHInfo.EmployeeId + "')";
 
             try
             {
@@ -41,16 +44,18 @@ namespace FMCGWebApp.Gateway
 
         }
 
-        public bool IsCategoryNameExists(Category category)
+        public bool IsWhouseExists(W_h_info wHInfo)
         {
             try
             {
-                string Query = "SELECT * FROM tb_Category WHERE (CategoryName = @CategoryName)";
+                string Query = "SELECT * FROM tb_WH_Info WHERE (WhName = @WhName and Location = @Location)";
                 SqlCommand Command = new SqlCommand(Query, _connection);
                 _connection.Open();
                 Command.Parameters.Clear();
-                Command.Parameters.Add("CategoryName", SqlDbType.VarChar);
-                Command.Parameters["CategoryName"].Value = category.CategoryName;
+                Command.Parameters.Add("WhName", SqlDbType.VarChar);
+                Command.Parameters["WhName"].Value = wHInfo.WhName;
+                Command.Parameters.Add("Location", SqlDbType.VarChar);
+                Command.Parameters["Location"].Value = wHInfo.Location;
                 SqlDataReader Reader = Command.ExecuteReader();
                 Reader.Read();
                 bool isExist = Reader.HasRows;
@@ -67,6 +72,5 @@ namespace FMCGWebApp.Gateway
             }
 
         }
-
     }
 }
