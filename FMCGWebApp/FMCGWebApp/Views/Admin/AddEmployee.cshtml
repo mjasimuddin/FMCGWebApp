@@ -67,7 +67,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label id="ShowEmail" class="control-label"></label>
-                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Email" } })
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Please Type Email" } })
                                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -125,11 +125,8 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    @*<script src="~/Scripts/jquery-3.2.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>*@
-    
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -154,7 +151,7 @@
                     MotherName: "Please Provide Mother Name",
                     GenderId: "Please Select Gender",
                     Email: {
-                        required: "Please provide Email",
+                        required: "The Email field is required",
                         email: "Please enter a valid Email"
                     },
                     NationalIdNumber: "Please provide NID Number",

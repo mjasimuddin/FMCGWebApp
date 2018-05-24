@@ -12,6 +12,7 @@ namespace FMCGWebApp.Controllers
     {
         private EmployeeManager _employee = new EmployeeManager();
         private CategoryManager _category = new CategoryManager();
+        private ShopInfoManager _shopInfo = new ShopInfoManager();
 
         public ActionResult AddEmployee()
         {
@@ -45,19 +46,6 @@ namespace FMCGWebApp.Controllers
             ViewBag.gender = _employee.GetGenderList();
             return View();
         }
-        public JsonResult IsEmailExists(string email)
-        {
-            bool isCodeExists = _employee.IsEmailExists(email);
-
-            if (isCodeExists)
-                return Json(false, JsonRequestBehavior.AllowGet);
-            else
-            {
-                return Json(true, JsonRequestBehavior.AllowGet);
-
-            }
-        }
-
         public ActionResult SaveCategory()
         {
             return View();
@@ -80,6 +68,47 @@ namespace FMCGWebApp.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult SaveShopInfo()
+        {
+            ViewBag.area = _shopInfo.GetAreaList();
+            ViewBag.ListOfEmployees = _shopInfo.GetAllEmployees();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SaveShopInfo(ShopInfo shopInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+                    ViewBag.ShowMsg = _shopInfo.SaveShopInfo(shopInfo);
+
+                }
+                catch (Exception exception)
+                {
+                    ViewBag.ShowMsg = exception.Message;
+                }
+            }
+            ViewBag.area = _shopInfo.GetAreaList();
+            ViewBag.ListOfEmployees = _shopInfo.GetAllEmployees();
+            return View();
+        }
+
+        public JsonResult IsEmailExists(string email)
+        {
+            bool isCodeExists = _employee.IsEmailExists(email);
+
+            if (isCodeExists)
+                return Json(false, JsonRequestBehavior.AllowGet);
+            else
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+
+            }
         }
 
     }
