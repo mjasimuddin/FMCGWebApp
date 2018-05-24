@@ -11,13 +11,14 @@ namespace FMCGWebApp.Models
     {
         public int Id { get; set; }
         [Required]
+        [Remote("IsEmailExists", "Admin", ErrorMessage = "Email Already Exists!")]
         public string EmployeeName { get; set; }
         [Required]
         public string FatherName { get; set; }
         [Required]
         public string MotherName { get; set; }
         [EmailAddress]
-        [Remote("IsEmailExists", "Admin", ErrorMessage = "Email Already Exists!")]
+        //[Remote("IsEmailExists", "Admin", ErrorMessage = "Email Already Exists!")]
         public string Email { get; set; }
         [Required]
         public int GenderId { get; set; }

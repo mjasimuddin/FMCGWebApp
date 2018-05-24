@@ -10,10 +10,35 @@ namespace FMCGWebApp.Controllers
 {
     public class AdminController : Controller
     {
+        private WhouseinfoManager _whouseinfo = new WhouseinfoManager();
         private EmployeeManager _employee = new EmployeeManager();
         private CategoryManager _category = new CategoryManager();
         private ShopInfoManager _shopInfo = new ShopInfoManager();
 
+
+        public ActionResult SaveWhouse()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SaveWhouse(W_h_info wHInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+                    ViewBag.ShowMsg = _whouseinfo.SaveWhouse(wHInfo);
+
+                }
+                catch (Exception exception)
+                {
+                    ViewBag.ShowMsg = exception.Message;
+                }
+            }
+
+            return View();
+        }
         public ActionResult AddEmployee()
         {
             ViewBag.gender = _employee.GetGenderList();
