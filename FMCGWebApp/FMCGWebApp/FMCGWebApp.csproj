@@ -123,9 +123,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\SellforceController.cs" />
+    <Compile Include="Controllers\WhInchargeController.cs" />
     <Compile Include="Gateway\CategoryGateway.cs" />
     <Compile Include="Gateway\EmployeeGateway.cs" />
     <Compile Include="Gateway\SellOrderGateway.cs" />
+    <Compile Include="Gateway\WhInchargeGateway.cs" />
     <Compile Include="Gateway\WhouseinfoGateway.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -133,11 +135,13 @@
     <Compile Include="Manager\CategoryManager.cs" />
     <Compile Include="Manager\EmployeeManager.cs" />
     <Compile Include="Manager\SellOrderManager.cs" />
+    <Compile Include="Manager\WhInchargeManager.cs" />
     <Compile Include="Manager\WhouseinfoManager.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\SellOrder.cs" />
+    <Compile Include="Models\Stockout.cs" />
     <Compile Include="Models\W_h_info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Item.cs" />
@@ -182,6 +186,8 @@
     <Content Include="Views\Admin\SaveWhouse.cshtml" />
     <Content Include="Views\Shared\_LayoutSellforce.cshtml" />
     <Content Include="Views\Sellforce\SendSellOrder.cshtml" />
+    <Content Include="Views\Shared\_LayoutWhIncharge.cshtml" />
+    <Content Include="Views\WHIncharge\StockOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
