@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FMCGWebApp.Manager;
 using FMCGWebApp.Models;
+using FMCGWebApp.ViewModels;
 
 namespace FMCGWebApp.Controllers
 {
@@ -20,15 +21,47 @@ namespace FMCGWebApp.Controllers
         private StockInManager _stockIn = new StockInManager();
         private SellOrderManager _sellOrder = new SellOrderManager();
         private AreaManager _area = new AreaManager();
+        private AccountManager _account = new AccountManager();
 
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
+
             return View();
         }
 
         public ActionResult SaveCategory()
         {
-            return View();
+
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
+
+            int employeeId = (int)Session["user"];
+            List<LoginInfo> userRole = _account.GetUserRole(employeeId);
+            int UserTypeId = 0;
+            foreach (var loginInfo in userRole)
+            {
+                if (loginInfo.UserTypeId == 2)
+                {
+                    UserTypeId = 2;
+                }
+            }
+            if (UserTypeId == 2)
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home", "Account");
+            }
         }
         [HttpPost]
         public ActionResult SaveCategory(Category category)
@@ -52,9 +85,35 @@ namespace FMCGWebApp.Controllers
 
         public ActionResult SaveItem()
         {
-            ViewBag.categorys = _item.GetAllCategory();
 
-            return View();
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
+
+            int employeeId = (int)Session["user"];
+            List<LoginInfo> userRole = _account.GetUserRole(employeeId);
+            int UserTypeId = 0;
+            foreach (var loginInfo in userRole)
+            {
+                if (loginInfo.UserTypeId == 2)
+                {
+                    UserTypeId = 2;
+                }
+            }
+            if (UserTypeId == 2)
+            {
+
+                ViewBag.categorys = _item.GetAllCategory();
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home", "Account");
+            }
+
         }
         [HttpPost]
         public ActionResult SaveItem(Item item)
@@ -79,8 +138,33 @@ namespace FMCGWebApp.Controllers
 
         public ActionResult SaveWhouse()
         {
-            ViewBag.employees = _shopInfo.GetAllEmployees();
-            return View();
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
+
+            int employeeId = (int)Session["user"];
+            List<LoginInfo> userRole = _account.GetUserRole(employeeId);
+            int UserTypeId = 0;
+            foreach (var loginInfo in userRole)
+            {
+                if (loginInfo.UserTypeId == 2)
+                {
+                    UserTypeId = 2;
+                }
+            }
+            if (UserTypeId == 2)
+            {
+
+                ViewBag.employees = _shopInfo.GetAllEmployees();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home", "Account");
+            }
+
         }
         [HttpPost]
         public ActionResult SaveWhouse(W_h_info wHInfo)
@@ -105,10 +189,35 @@ namespace FMCGWebApp.Controllers
 
         public ActionResult SaveEmployee()
         {
-            ViewBag.designations = _employee.GetDesignationList();
-            ViewBag.gender = _employee.GetGenderList();
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
 
-            return View();
+            int employeeId = (int)Session["user"];
+            List<LoginInfo> userRole = _account.GetUserRole(employeeId);
+            int UserTypeId = 0;
+            foreach (var loginInfo in userRole)
+            {
+                if (loginInfo.UserTypeId == 2)
+                {
+                    UserTypeId = 2;
+                }
+            }
+            if (UserTypeId == 2)
+            {
+
+                ViewBag.designations = _employee.GetDesignationList();
+                ViewBag.gender = _employee.GetGenderList();
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home", "Account");
+            }
+
         }
         [HttpPost]
         public ActionResult SaveEmployee(Employee employee)
@@ -135,8 +244,31 @@ namespace FMCGWebApp.Controllers
 
         public ActionResult SaveArea()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
 
-            return View();
+            int employeeId = (int)Session["user"];
+            List<LoginInfo> userRole = _account.GetUserRole(employeeId);
+            int UserTypeId = 0;
+            foreach (var loginInfo in userRole)
+            {
+                if (loginInfo.UserTypeId == 2)
+                {
+                    UserTypeId = 2;
+                }
+            }
+            if (UserTypeId == 2)
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home", "Account");
+            }
         }
 
         [HttpPost]
@@ -162,9 +294,33 @@ namespace FMCGWebApp.Controllers
 
         public ActionResult SaveShopInfo()
         {
-            ViewBag.area = _shopInfo.GetAreaList();
-            ViewBag.employees = _shopInfo.GetAllEmployees();
-            return View();
+
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
+
+            int employeeId = (int)Session["user"];
+            List<LoginInfo> userRole = _account.GetUserRole(employeeId);
+            int UserTypeId = 0;
+            foreach (var loginInfo in userRole)
+            {
+                if (loginInfo.UserTypeId == 2)
+                {
+                    UserTypeId = 2;
+                }
+            }
+            if (UserTypeId == 2)
+            {
+                ViewBag.area = _shopInfo.GetAreaList();
+                ViewBag.employees = _shopInfo.GetAllEmployees();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home", "Account");
+            }
         }
 
         [HttpPost]

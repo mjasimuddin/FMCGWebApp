@@ -207,14 +207,40 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\_LayoutOfficeAssistant.cshtml" />
+    <Content Include="Views\Shared\_LayoutSellForce.cshtml" />
+    <Content Include="Views\Shared\_LayoutWhIncharge.cshtml" />
+    <Content Include="Views\SellForce\SendSellOrder.cshtml" />
+    <Content Include="Views\SellForce\Index.cshtml" />
+    <Content Include="Views\WhIncharge\Index.cshtml" />
+    <Content Include="Views\WhIncharge\Stockout.cshtml" />
+    <Content Include="Views\WhIncharge\SaveStockin.cshtml" />
+    <Content Include="Views\WhIncharge\CompareOrderandStock.cshtml" />
+    <Content Include="Views\Account\Home.cshtml" />
+    <Content Include="Views\Account\AdminLogin.cshtml" />
+    <Content Include="Views\Account\AssistantLogin.cshtml" />
+    <Content Include="Views\Account\WhInchargeLogin.cshtml" />
+    <Content Include="Views\Account\SellForceLogin.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\SaveCategory.cshtml" />
+    <Content Include="Views\Admin\SaveItem.cshtml" />
+    <Content Include="Views\Admin\SaveWhouse.cshtml" />
+    <Content Include="Views\Admin\SaveEmployee.cshtml" />
+    <Content Include="Views\Admin\SaveShopInfo.cshtml" />
+    <Content Include="Views\Admin\SaveArea.cshtml" />
+    <Content Include="Views\Admin\SetEmployeePassword.cshtml" />
+    <Content Include="Views\Admin\SetEmployeeUserType.cshtml" />
+    <Content Include="Views\OfficeAssistant\Index.cshtml" />
+    <Content Include="Views\OfficeAssistant\SaveCategory.cshtml" />
+    <Content Include="Views\OfficeAssistant\SaveItem.cshtml" />
+    <Content Include="Views\OfficeAssistant\SaveWhouse.cshtml" />
+    <Content Include="Views\OfficeAssistant\SaveEmployee.cshtml" />
+    <Content Include="Views\OfficeAssistant\SaveArea.cshtml" />
+    <Content Include="Views\OfficeAssistant\SaveShopInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
-    <Folder Include="Views\Admin\" />
-    <Folder Include="Views\OfficeAssistant\" />
-    <Folder Include="Views\SellForce\" />
-    <Folder Include="Views\WhIncharge\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

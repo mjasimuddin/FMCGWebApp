@@ -44,6 +44,7 @@ namespace FMCGWebApp.Controllers
                         Session["User1"] = name;
                         Session["user"] = status[0].Id;
                         Session["status"] = true;
+                        Session["userTypeId"] = status[0].UserTypeId;
                         if (status[0].UserTypeId == 1)
                         {
                             return RedirectToAction("../Admin/Index");
@@ -201,6 +202,12 @@ namespace FMCGWebApp.Controllers
                 ViewBag.Msg = exception.Message;
             }
             return View();
+        }
+
+        public ActionResult Logout()
+        {
+            Session["user"] = null;
+            return RedirectToAction("Home");
         }
 
     }

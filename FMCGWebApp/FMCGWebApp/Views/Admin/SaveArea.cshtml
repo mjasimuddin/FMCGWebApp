@@ -1,0 +1,72 @@
+﻿@model FMCGWebApp.Models.Area
+
+@{
+    ViewBag.Title = "SaveArea";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Save Area</h2>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { name = "AreaValidasion", id = "AreaValidasion" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-12">
+                <label id="ShowAreaName"></label>
+                @Html.EditorFor(model => model.AreaName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Area Name" } })
+                @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <label id="ShowAreaCode"></label>
+                @Html.EditorFor(model => model.AreaCode, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Area Code" } })
+                @Html.ValidationMessageFor(model => model.AreaCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+        <h4> @ViewBag.ShowMsg </h4>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $("#AreaName").click(function () {
+                $("#ShowAreaName").text("Area Name");
+            });
+            $("#AreaCode").click(function () {
+                $("#ShowAreaCode").text("Area Code");
+            });
+        });
+
+        $("#AreaValidasion").validate({
+            rules: {
+
+                AreaName: "required",
+                AreaCode: "required",
+
+            },
+            messages: {
+
+                AreaName: "Please  Enter Area Name!",
+                AreaCode: "Please  Enter Area Cade!",
+            }
+        });
+
+    </script>
+}
