@@ -11,10 +11,11 @@ namespace FMCGWebApp.Models
         public string EmployeeName { get; set; }
         public string FatherName { get; set; }
         public string MotherName { get; set; }
-        public int GenderId { get; set; }
         public string Email { get; set; }
-        public string NationalIdNumber { get; set; }
+        public int DesignationId { get; set; }
+        public int GenderId { get; set; }
         public string PhoneNumber { get; set; }
+        public string NationalIdNumber { get; set; }
         public string Address { get; set; }
     }
 }

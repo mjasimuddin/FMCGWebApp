@@ -5,10 +5,10 @@ using System.Web;
 
 namespace FMCGWebApp.Models
 {
-    public class Area
+    public class Item
     {
         public int Id { get; set; }
-        public string AreaName { get; set; }
-        public string AreaCode { get; set; }
+        public string ItemName { get; set; }
+        public int CategoryId { get; set; }
     }
 }
