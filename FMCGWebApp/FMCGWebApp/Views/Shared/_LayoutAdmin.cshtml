@@ -20,10 +20,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Admin Login", "AdminLogin", "Account")</li>
-                    <li>@Html.ActionLink("Assistant Login", "AssistantLogin", "Account")</li>
-                    <li>@Html.ActionLink("House Incharge Login", "WhInchargeLogin", "Account")</li>
-                    <li>@Html.ActionLink("Sell Force Login", "SellForceLogin", "Account")</li>
+                    <li>@Html.ActionLink("Category Entry", "SaveCategory", "Admin")</li>
+                    <li>@Html.ActionLink("Item Entry", "SaveItem", "Admin")</li>
+                    <li>@Html.ActionLink("House Entry", "SaveWhouse", "Admin")</li>
+                    <li>@Html.ActionLink("Area Entry", "SaveArea", "Admin")</li>
+                    <li>@Html.ActionLink("Employee Entry", "SaveEmployee", "Admin")</li>
+                    <li>@Html.ActionLink("Set Password", "SetEmployeePassword", "Admin")</li>
+                    <li>@Html.ActionLink("Set Role", "SetEmployeeUserType", "Admin")</li>
+                    <li>@Html.ActionLink("Shop Entry", "SaveShopInfo", "Admin")</li>
+                    <li>@Html.ActionLink("Stock In", "SaveStockin", "Admin")</li>
+                    <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
                 </ul>
             </div>
         </div>

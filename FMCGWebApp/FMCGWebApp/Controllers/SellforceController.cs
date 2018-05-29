@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FMCGWebApp.Manager;
 using FMCGWebApp.Models;
+using FMCGWebApp.ViewModels;
 
 namespace FMCGWebApp.Controllers
 {
@@ -14,20 +15,51 @@ namespace FMCGWebApp.Controllers
 
         private SellOrderManager _sellOrder = new SellOrderManager();
         private ShopInfoManager _shopInfo = new ShopInfoManager();
+        private AccountManager _account = new AccountManager();
 
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
+
             return View();
         }
 
         public ActionResult SendSellOrder()
         {
-            ViewBag.area = _shopInfo.GetAreaList();
-            ViewBag.shop = _sellOrder.GetAllShop();
-            ViewBag.category = _sellOrder.GetAllCategory();
-            ViewBag.item = _sellOrder.GetAllItem();
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
 
-            return View();
+            int employeeId = (int)Session["user"];
+            List<LoginInfo> userRole = _account.GetUserRole(employeeId);
+            int UserTypeId = 0;
+            foreach (var loginInfo in userRole)
+            {
+                if (loginInfo.UserTypeId == 4)
+                {
+                    UserTypeId = 4;
+                }
+            }
+            if (UserTypeId == 4)
+            {
+                ViewBag.area = _shopInfo.GetAreaList();
+                ViewBag.shop = _sellOrder.GetAllShop();
+                ViewBag.category = _sellOrder.GetAllCategory();
+                ViewBag.item = _sellOrder.GetAllItem();
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home", "Account");
+            }
+
         }
         [HttpPost]
         public ActionResult SendSellOrder(SellOrder sellOrder)

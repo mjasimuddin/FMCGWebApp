@@ -17,17 +17,49 @@ namespace FMCGWebApp.Controllers
         private ItemManager _item = new ItemManager();
         private SellOrderManager _sellOrder = new SellOrderManager();
         private ReportManager _report = new ReportManager();
+        private PasswordAndDesignationManager _passwordAndDesignation = new PasswordAndDesignationManager();
+        private AccountManager _account = new AccountManager();
 
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
+
             return View();
         }
 
         public ActionResult Stockout()
         {
-            ViewBag.orderId = _stockOut.SellOrderList();
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
 
-            return View();
+            int employeeId = (int)Session["user"];
+            List<LoginInfo> userRole = _account.GetUserRole(employeeId);
+            int UserTypeId = 0;
+            foreach (var loginInfo in userRole)
+            {
+                if (loginInfo.UserTypeId == 3)
+                {
+                    UserTypeId = 3;
+                }
+            }
+            if (UserTypeId == 3)
+            {
+                ViewBag.orderId = _stockOut.SellOrderList();
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home", "Account");
+            }
+
         }
         [HttpPost]
         public ActionResult Stockout(Stockout stockout)
@@ -48,10 +80,34 @@ namespace FMCGWebApp.Controllers
 
         public ActionResult SaveStockin()
         {
-            ViewBag.categorys = _item.GetAllCategory();
-            ViewBag.item = _sellOrder.GetAllItem();
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Home", "Account");
+                ;
+            }
 
-            return View();
+            int employeeId = (int)Session["user"];
+            List<LoginInfo> userRole = _account.GetUserRole(employeeId);
+            int UserTypeId = 0;
+            foreach (var loginInfo in userRole)
+            {
+                if (loginInfo.UserTypeId == 3)
+                {
+                    UserTypeId = 3;
+                }
+            }
+            if (UserTypeId == 3)
+            {
+                ViewBag.categorys = _item.GetAllCategory();
+                ViewBag.item = _sellOrder.GetAllItem();
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home", "Account");
+            }
+
         }
 
         [HttpPost]
