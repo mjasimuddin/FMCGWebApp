@@ -12,78 +12,127 @@ namespace FMCGWebApp.Gateway
     public class EmployeeGateway
     {
         private SqlConnection _connection = new SqlConnection(
-            WebConfigurationManager.ConnectionStrings["FMCGDB"].ConnectionString);
-        public int AddEmployee(Employee employee)
+         WebConfigurationManager.ConnectionStrings["FMCG_Db"].ConnectionString);
+        public int SaveEmployee(Employee employee)
         {
-            string query = "INSERT INTO tb_Employee (EmployeeName,FatherName,MotherName,GenderId,Email,NationalIdNumber,PhoneNumber,Address) Values('" + employee.EmployeeName + "','" + employee.FatherName + "','" + employee.MotherName + "','" + employee.GenderId + "','" + employee.Email + "','" + employee.NationalIdNumber + "','" + employee.PhoneNumber + "','" + employee.Address + "')";
+            string query = @"INSERT INTO [dbo].[tb_Employee]
+           ([EmployeeName]
+           ,[FatherName]
+           ,[MotherName]
+           ,[GenderId]
+           ,[Address]
+           ,[NID_Number]
+           ,[PhoneNumber]
+           ,[Email]
+           ,[DesignationId])
+     VALUES
+           ('" + employee.EmployeeName + "', '" + employee.FatherName + "','" + employee.MotherName + "','" +
+                           employee.GenderId + "','" + employee.Address + "','" + employee.NationalIdNumber + "','" +
+                           employee.PhoneNumber + "','" + employee.Email + "', '" + employee.DesignationId + "')";
+
             try
             {
                 SqlCommand command = new SqlCommand(query, _connection);
                 _connection.Open();
                 int rowAffected = command.ExecuteNonQuery();
+                _connection.Close();
+
                 return rowAffected;
             }
             catch (Exception exception)
             {
-
                 throw new Exception("Unable to connect Server", exception);
             }
             finally
             {
                 _connection.Close();
             }
+
+
         }
-        public List<Gender> GetGenderList()
+
+        public bool IsEmailExists(Employee employee)
         {
-            string query = "SELECT * FROM tb_Gender";
             try
             {
-                SqlCommand command = new SqlCommand(query, _connection);
+                string Query = "SELECT * FROM tb_Employee WHERE (Email = @Email)";
+
+                SqlCommand Command = new SqlCommand(Query, _connection);
                 _connection.Open();
-                SqlDataReader dr = command.ExecuteReader();
-                List<Gender> genderlist = new List<Gender>();
-                while (dr.Read())
-                {
-                    Gender gender = new Gender();
-                    gender.Id = (int)dr["Id"];
-                    gender.GenderName = dr["GenderName"].ToString();
-                    genderlist.Add(gender);
-                }
-                dr.Close();
-                return genderlist;
+                Command.Parameters.Clear();
+                Command.Parameters.Add("Email", SqlDbType.VarChar);
+                Command.Parameters["Email"].Value = employee.Email;
+                SqlDataReader Reader = Command.ExecuteReader();
+                Reader.Read();
+                bool isExist = Reader.HasRows;
+                Reader.Close();
+                return isExist;
             }
             catch (Exception exception)
             {
-
                 throw new Exception("Unable to connect Server", exception);
             }
             finally
             {
                 _connection.Close();
             }
+
         }
 
-        public bool IsEmailExist(string email)
+        public List<Gender> GetGenderList()
         {
+
+            string query = @"SELECT [Id]
+      ,[GenderName]
+  FROM [dbo].[tb_Gender]";
             try
             {
-                bool isExists = false;
-
-                string query = "SELECT Email FROM tb_Employee WHERE Email= @Email ";
                 SqlCommand command = new SqlCommand(query, _connection);
-
-                command.Parameters.Clear();
-
-                command.Parameters.Add("@Email", SqlDbType.VarChar).Value = email;
                 _connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
+                List<Gender> genderList = new List<Gender>();
+                while (reader.Read())
                 {
-                    isExists = true;
-                }
+                    Gender gender = new Gender();
+                    gender.Id = (int)reader["Id"];
+                    gender.GenderName = reader["GenderName"].ToString();
+                    genderList.Add(gender);
 
+                }
                 reader.Close();
-                return isExists;
+                return genderList;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Unable to connect Server", exception);
+            }
+            finally
+            {
+                _connection.Close();
+            }
+
+        }
+
+        public List<Disignation> GetDesignationList()
+        {
+            string query = @"SELECT [Id]
+      ,[DesignationName]
+  FROM [dbo].[tb_Designation]";
+            try
+            {
+                SqlCommand command = new SqlCommand(query, _connection);
+                _connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                List<Disignation> designationList = new List<Disignation>();
+                while (reader.Read())
+                {
+                    Disignation disignation = new Disignation();
+                    disignation.Id = (int)reader["Id"];
+                    disignation.DisignationName = reader["DesignationName"].ToString();
+                    designationList.Add(disignation);
+                }
+                reader.Close();
+                return designationList;
             }
             catch (Exception exception)
             {

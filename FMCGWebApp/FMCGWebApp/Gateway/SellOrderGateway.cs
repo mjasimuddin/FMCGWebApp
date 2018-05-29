@@ -13,7 +13,7 @@ namespace FMCGWebApp.Gateway
     public class SellOrderGateway
     {
         private SqlConnection _connection = new SqlConnection(
-            WebConfigurationManager.ConnectionStrings["FMCGDB"].ConnectionString);
+            WebConfigurationManager.ConnectionStrings["FMCG_Db"].ConnectionString);
 
         public int SendSellOrder(SellOrder sellOrder)
         {
@@ -215,15 +215,15 @@ namespace FMCGWebApp.Gateway
                 SqlCommand command = new SqlCommand(query, _connection);
                 _connection.Open();
                 SqlDataReader dr = command.ExecuteReader();
-                List<Gender> genderlist = new List<Gender>();
+                List<Shop> orderedId = new List<Shop>();
                 while (dr.Read())
                 {
-                    Gender gender = new Gender();
-                    gender.Id = (int)dr["Id"];
-                    genderlist.Add(gender);
+                    Shop shop = new Shop();
+                    shop.Id = (int)dr["Id"];
+                    orderedId.Add(shop);
                 }
                 dr.Close();
-                return genderlist.FirstOrDefault().Id;
+                return orderedId.FirstOrDefault().Id;
             }
             catch (Exception exception)
             {

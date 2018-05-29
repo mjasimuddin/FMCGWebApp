@@ -12,7 +12,7 @@ namespace FMCGWebApp.Gateway
     public class WhouseinfoGateway
     {
         private SqlConnection _connection = new SqlConnection(
-            WebConfigurationManager.ConnectionStrings["FMCGDB"].ConnectionString);
+          WebConfigurationManager.ConnectionStrings["FMCG_Db"].ConnectionString);
         public int SaveWhouse(W_h_info wHInfo)
         {
             string query = @"INSERT INTO [dbo].[tb_WH_Info]
