@@ -18,13 +18,13 @@ namespace FMCGWebApp.Gateway
 
             string query1 = @"SELECT i.ItemName
 ,c.CategoryName
-,LastStock = s.Stock- e.sell
+,LastStock = s.Stock- isnull(e.sell,0)
 ,n.Need
 FROM tb_Stock s
 LEFT JOIN tb_Need n on n.ItemId = s.ItemId
-INNER JOIN tb_Sell e on e.ItemId = s.ItemId
-INNER JOIN tb_Item i on i.Id = s.ItemId
-INNER JOIN tb_category c on c.Id = s.CategoryId
+Full Outer JOIN tb_Sell e on e.ItemId = s.ItemId
+Full OUTER JOIN tb_Item i on i.Id = s.ItemId
+Full Outer JOIN tb_category c on c.Id = i.CategoryId
 ORDER BY n.Need DESC";
             try
             {
