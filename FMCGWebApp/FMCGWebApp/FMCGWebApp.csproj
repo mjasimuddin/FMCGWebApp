@@ -123,17 +123,21 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\SellforceController.cs" />
+    <Compile Include="Gateway\AccountGateway.cs" />
+    <Compile Include="Gateway\AreaGateway.cs" />
     <Compile Include="Gateway\CategoryGateway.cs" />
     <Compile Include="Gateway\EmployeeGateway.cs" />
+    <Compile Include="Gateway\ItemGateway.cs" />
+    <Compile Include="Gateway\PasswordAndDesignationGateway.cs" />
+    <Compile Include="Gateway\ReportGateway.cs" />
     <Compile Include="Gateway\SellOrderGateway.cs" />
     <Compile Include="Gateway\ShopInfoGateway.cs" />
+    <Compile Include="Gateway\StockInGateway.cs" />
+    <Compile Include="Gateway\StockOutGateway.cs" />
     <Compile Include="Gateway\WhouseinfoGateway.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Manager\CategoryManager.cs" />
-    <Compile Include="Manager\EmployeeManager.cs" />
-    <Compile Include="Manager\ShopInfoManager.cs" />
     <Compile Include="Models\Area.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Disignation.cs" />
@@ -143,8 +147,6 @@
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ShopInfo.cs" />
-    <Compile Include="Manager\SellOrderManager.cs" />
-    <Compile Include="Manager\WhouseinfoManager.cs" />
     <Compile Include="Models\SellOrder.cs" />
     <Compile Include="Models\StockIn.cs" />
     <Compile Include="Models\Stockout.cs" />
@@ -200,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Manager\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

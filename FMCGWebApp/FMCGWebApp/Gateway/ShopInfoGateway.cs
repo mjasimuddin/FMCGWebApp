@@ -12,7 +12,7 @@ namespace FMCGWebApp.Gateway
     public class ShopInfoGateway
     {
         private SqlConnection _connection = new SqlConnection(
-            WebConfigurationManager.ConnectionStrings["FMCGDB"].ConnectionString);
+           WebConfigurationManager.ConnectionStrings["FMCG_Db"].ConnectionString);
         public int SaveShopInfo(ShopInfo shopInfo)
         {
             string query = "INSERT INTO tb_ShopInfo (ShopName,ShopkeeperName,AreaId,EmployeeId,PhoneNumber) Values('" + shopInfo.ShopName + "','" + shopInfo.ShopkeeperName + "','" + shopInfo.AreaId + "','" + shopInfo.EmployeeId + "','" + shopInfo.PhoneNumber + "')";
@@ -65,39 +65,7 @@ namespace FMCGWebApp.Gateway
             }
         }
 
-        public List<Employee> GetEmployeeById(int id)
-        {
-            string query1 = @"Select e.Id,e.EmployeeName
-            from Employee e
-            where e.Id = '" + id + "'";
-            try
-            {
-                var command = new SqlCommand(query1, _connection);
-                _connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                var employees = new List<Employee>();
-                while (reader.Read())
-                {
-                    var employee = new Employee
-                    {
-                        Id = (int)reader["Id"],
-                        EmployeeName = reader["EmployeeName"].ToString(),
-                    };
-                    employees.Add(employee);
-                }
-                reader.Close();
-                return employees;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("Unable to connect Server", exception);
-            }
-            finally
-            {
-                _connection.Close();
-            }
 
-        }
         public List<Employee> GetAllEmployees()
         {
             string query = "SELECT *FROM tb_Employee";

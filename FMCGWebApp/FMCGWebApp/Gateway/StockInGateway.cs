@@ -9,16 +9,22 @@ using FMCGWebApp.Models;
 
 namespace FMCGWebApp.Gateway
 {
-    public class CategoryGateway
+    public class StockInGateway
     {
         private SqlConnection _connection = new SqlConnection(
-            WebConfigurationManager.ConnectionStrings["FMCG_Db"].ConnectionString);
-        public int SaveCategory(Category category)
+    WebConfigurationManager.ConnectionStrings["FMCG_Db"].ConnectionString);
+
+        public int SaveStockin(StockIn stockIn)
         {
-            string query = @"INSERT INTO [dbo].[tb_Category]
-           ([CategoryName])
+            string query = @"INSERT INTO [dbo].[tb_StockIn]
+           ([CategoryId]
+           ,[ItemId]
+           ,[Quentity]
+           ,[EntryDate]
+           ,[EmployeeId])
      VALUES
-           ('" + category.CategoryName + "')";
+           ('" + stockIn.CategoryId + "','" + stockIn.ItemId + "','" + stockIn.TotalQuantity + "','" +
+                           stockIn.EntryDate + "','" + stockIn.EmployeeId + "')";
 
             try
             {
@@ -38,19 +44,20 @@ namespace FMCGWebApp.Gateway
                 _connection.Close();
             }
 
-
         }
 
-        public bool IsCategoryNameExists(Category category)
+        public bool IsItemNameExists(StockIn stockIn)
         {
             try
             {
-                string Query = "SELECT * FROM tb_Category WHERE (CategoryName = @CategoryName)";
+                string Query = "SELECT * FROM tb_StockIn WHERE (CategoryId = @CategoryId and ItemId = @ItemId)";
                 SqlCommand Command = new SqlCommand(Query, _connection);
                 _connection.Open();
                 Command.Parameters.Clear();
-                Command.Parameters.Add("CategoryName", SqlDbType.VarChar);
-                Command.Parameters["CategoryName"].Value = category.CategoryName;
+                Command.Parameters.Add("CategoryId", SqlDbType.Int);
+                Command.Parameters["CategoryId"].Value = stockIn.CategoryId;
+                Command.Parameters.Add("ItemId", SqlDbType.Int);
+                Command.Parameters["ItemId"].Value = stockIn.ItemId;
                 SqlDataReader Reader = Command.ExecuteReader();
                 Reader.Read();
                 bool isExist = Reader.HasRows;
@@ -65,8 +72,6 @@ namespace FMCGWebApp.Gateway
             {
                 _connection.Close();
             }
-
         }
-
     }
 }
