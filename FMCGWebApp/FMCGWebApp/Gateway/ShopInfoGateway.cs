@@ -9,7 +9,6 @@ using FMCGWebApp.Models;
 
 namespace FMCGWebApp.Gateway
 {
-
     public class ShopInfoGateway
     {
         private SqlConnection _connection = new SqlConnection(
