@@ -1,112 +1,132 @@
-﻿@model FMCGWebApp.Models.Employee
+﻿@using System.Web.UI.WebControls
+@model FMCGWebApp.Models.Employee
 
 @{
     ViewBag.Title = "SaveEmployee";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Save Employee</h2>
 
-
-@using (Html.BeginForm(null, null, FormMethod.Post, new { name = "EmployeeValidasion", id = "EmployeeValidasion" }))
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <div class="col-md-12">
-                <label id="ShowEmployeeName"></label>
-                @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Employee Name" } })
-                @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-12">
-                <label id="ShowEmail"></label>
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Email" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-12">
-                <label id="ShowDesignationId" class="control-label"></label>
-                <select name="DesignationId" id="DesignationId" class="form-control">
-                    <option value="">--Select Designation--</option>
-                    @foreach (var designations in ViewBag.designations)
+<div id="page-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="fBody">
+                    <h3 style="text-align: center;margin-top: 100px">New Employee Entry</h3>
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { name = "EmployeeValidasion", id = "EmployeeValidasion" }))
                     {
-                        <option value="@designations.Id">@designations.DisignationName</option>
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowEmployeeName"></label>
+                                    <input type="text" id="EmployeeName" name="EmployeeName" class="ggg" placeholder="Enter Employee Name" />
+                                    @*@Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Employee Name" } })*@
+                                    @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowEmail"></label>
+                                    <input type="text" id="Email" name="Email" class="ggg" placeholder="Enter Email" />
+                                    @*@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "ggg", PlaceHolder = "Enter Email" } })*@
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowDesignationId" class="control-label"></label>
+                                    <select name="DesignationId" id="DesignationId" class="form-control">
+                                        <option value="">--Select Designation--</option>
+                                        @foreach (var designations in ViewBag.designations)
+                                        {
+                                            <option value="@designations.Id">@designations.DisignationName</option>
+                                        }
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowFatherName"></label>
+                                    <input type="text" id="FatherName" name="FatherName" class="ggg" placeholder="Enter Father's' Name" />
+                                    @*@Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "ggg", PlaceHolder = "Enter Father's Name" } })*@
+                                    @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowMotherName"></label>
+                                    <input type="text" id="MotherName" name="MotherName" class="ggg" placeholder="Enter Mother's' Name" />
+                                    @*@Html.EditorFor(model => model.MotherName, new { htmlAttributes = new { @class = "ggg", PlaceHolder = "Enter Mother's Name" } })*@
+                                    @Html.ValidationMessageFor(model => model.MotherName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowGenderId" class="control-label"></label>
+                                    <select name="GenderId" id="GenderId" class="form-control">
+                                        <option value="">--Select Gender--</option>
+                                        @foreach (var gender in ViewBag.gender)
+                                        {
+                                            <option value="@gender.Id">@gender.GenderName</option>
+                                        }
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.GenderId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowAddress"></label>
+                                    <input type="text" id="Address" name="Address" class="ggg" placeholder="Enter Address" />
+                                    @*@Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "ggg", PlaceHolder = "City" } })*@
+                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowNationalIdNumber"></label>
+                                    <input type="text" id="NationalIdNumber" name="NationalIdNumber" class="ggg" placeholder="Enter National Id Number" />
+                                    @*@Html.EditorFor(model => model.NationalIdNumber, new { htmlAttributes = new { @class = "ggg", PlaceHolder = "National Id Number" } })*@
+                                    @Html.ValidationMessageFor(model => model.NationalIdNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowPhoneNumber"></label>
+                                    <input type="text" id="PhoneNumber" name="PhoneNumber" class="ggg" placeholder="Enter Phone Number" />
+                                    @*@Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "ggg", PlaceHolder = "Phone Number" } })*@
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <input type="submit" value="Save" class="btn btn-success btn-block" />
+                                </div>
+                            </div>
+                            <h4> @ViewBag.ShowMsg</h4>
+                        </div>
                     }
-                </select>
-                @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-12">
-                <label id="ShowFatherName"></label>
-                @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Father's Name" } })
-                @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-12">
-                <label id="ShowMotherName"></label>
-                @Html.EditorFor(model => model.MotherName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Mother's Name" } })
-                @Html.ValidationMessageFor(model => model.MotherName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-12">
-                <label id="ShowGenderId" class="control-label"></label>
-                <select name="GenderId" id="GenderId" class="form-control">
-                    <option value="">--Select Gender--</option>
-                    @foreach (var gender in ViewBag.gender)
-                    {
-                        <option value="@gender.Id">@gender.GenderName</option>
-                    }
-                </select>
-                @Html.ValidationMessageFor(model => model.GenderId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-12">
-                <label id="ShowAddress"></label>
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "City" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-12">
-                <label id="ShowNationalIdNumber"></label>
-                @Html.EditorFor(model => model.NationalIdNumber, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "National Id Number" } })
-                @Html.ValidationMessageFor(model => model.NationalIdNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                <label id="ShowPhoneNumber"></label>
-                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Phone Number" } })
-                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-4">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-        <h4> @ViewBag.ShowMsg</h4>
     </div>
-}
+</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
