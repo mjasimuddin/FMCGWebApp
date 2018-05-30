@@ -11,19 +11,19 @@
     <table id="showAllOrdered" class="table table-striped table-bordered" style="width: 100%">
         <thead>
             <tr>
-                <th>
+                <th style="text-align: center; color: green">
                     @Html.DisplayName("Serial Number")
                 </th>
-                <th>
+                <th style="text-align: center; color: green">
                     @Html.DisplayName("Category Name")
                 </th>
-                <th>
+                <th style="text-align: center; color: green">
                     @Html.DisplayName("Item Name")
                 </th>
-                <th>
+                <th style="text-align: center; color: green">
                     @Html.DisplayNameFor(model => model.Need)
                 </th>
-                <th>
+                <th style="text-align: center; color: green">
                     @Html.DisplayNameFor(model => model.Stock)
                 </th>
             </tr>
@@ -38,19 +38,19 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+                    <td style="text-align: center; color: black">
                         @Html.DisplayFor(modelItem => item.Id)
                     </td>
-                    <td>
+                    <td style="text-align: center; color: black">
                         @Html.DisplayFor(modelItem => item.CategoryName)
                     </td>
-                    <td>
+                    <td style="text-align: center; color: black">
                         @Html.DisplayFor(modelItem => item.ItemName)
                     </td>
-                    <td>
+                    <td style="text-align: center; color: black">
                         @Html.DisplayFor(modelItem => item.Need)
                     </td>
-                    <td>
+                    <td style="text-align: center; color: black">
                         @Html.DisplayFor(modelItem => item.Stock)
                     </td>
 
