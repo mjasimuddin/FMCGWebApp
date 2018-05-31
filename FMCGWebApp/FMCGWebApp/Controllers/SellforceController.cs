@@ -49,9 +49,8 @@ namespace FMCGWebApp.Controllers
             if (UserTypeId == 4)
             {
                 ViewBag.area = _shopInfo.GetAreaList();
-                ViewBag.shop = _sellOrder.GetAllShop();
                 ViewBag.category = _sellOrder.GetAllCategory();
-                ViewBag.item = _sellOrder.GetAllItem();
+              //  ViewBag.item = _sellOrder.GetAllItem();
 
                 return View();
             }
@@ -83,11 +82,21 @@ namespace FMCGWebApp.Controllers
             }
 
             ViewBag.area = _shopInfo.GetAreaList();
-            ViewBag.shop = _sellOrder.GetAllShop();
             ViewBag.category = _sellOrder.GetAllCategory();
-            ViewBag.item = _sellOrder.GetAllItem();
+           // ViewBag.item = _sellOrder.GetAllItem();
             return View();
         }
 
+        public JsonResult GetShopByAreaId(int deptId)
+        {
+            var courses = _sellOrder.GetAllShop(deptId);
+            return Json(courses.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetItemByCategoryId(int deptId)
+        {
+            var courses = _sellOrder.GetAllItem(deptId);
+            return Json(courses.ToList(), JsonRequestBehavior.AllowGet);
+        }
     }
 }
