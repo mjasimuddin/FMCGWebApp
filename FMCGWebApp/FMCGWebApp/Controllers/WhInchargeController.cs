@@ -99,7 +99,7 @@ namespace FMCGWebApp.Controllers
             if (UserTypeId == 3)
             {
                 ViewBag.categorys = _item.GetAllCategory();
-                ViewBag.item = _sellOrder.GetAllItem();
+               // ViewBag.item = _sellOrder.GetAllItem();
 
                 return View();
             }
@@ -130,7 +130,7 @@ namespace FMCGWebApp.Controllers
                 }
             }
             ViewBag.categorys = _item.GetAllCategory();
-            ViewBag.item = _sellOrder.GetAllItem();
+           // ViewBag.item = _sellOrder.GetAllItem();
 
             return View();
         }

@@ -31,17 +31,17 @@ namespace FMCGWebApp.Manager
             return "Order Sending Faild";
         }
 
-        public List<Shop> GetAllShop()
+        public List<Shop> GetAllShop(int id)
         {
-            return _sellOrder.GetAllShop();
+            return _sellOrder.GetAllShop(id);
         }
         public List<Category> GetAllCategory()
         {
             return _sellOrder.GetAllCategory();
         }
-        public List<Item> GetAllItem()
+        public List<Item> GetAllItem(int id)
         {
-            return _sellOrder.GetAllItem();
+            return _sellOrder.GetAllItem(id);
         }
     }
 }

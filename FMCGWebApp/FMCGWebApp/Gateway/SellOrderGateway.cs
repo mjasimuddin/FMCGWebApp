@@ -115,9 +115,9 @@ namespace FMCGWebApp.Gateway
 
         }
 
-        public List<Shop> GetAllShop()
+        public List<Shop> GetAllShop(int id)
         {
-            string query = "SELECT * FROM tb_ShopInfo";
+            string query = "SELECT * FROM tb_ShopInfo Where AreaId = '"+ id +"'";
             try
             {
                 SqlCommand command = new SqlCommand(query, _connection);
@@ -175,9 +175,9 @@ namespace FMCGWebApp.Gateway
             }
         }
 
-        public List<Item> GetAllItem()
+        public List<Item> GetAllItem(int id)
         {
-            string query = "SELECT * FROM tb_Item";
+            string query = "SELECT * FROM tb_Item Where CategoryId = '"+ id +"'";
             try
             {
                 SqlCommand command = new SqlCommand(query, _connection);
