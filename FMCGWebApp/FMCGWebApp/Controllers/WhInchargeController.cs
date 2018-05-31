@@ -141,5 +141,11 @@ namespace FMCGWebApp.Controllers
             return View(CompareOrderandStock);
         }
 
+        public JsonResult GetItemByCategoryId(int deptId)
+        {
+            var courses = _sellOrder.GetAllItem(deptId);
+            return Json(courses.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

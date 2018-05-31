@@ -32,18 +32,14 @@
                                     @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
+                            
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label id="ShowItemId" class="control-label"></label>
                                     <select name="ItemId" id="ItemId" class="form-control">
-                                        <option value="">--Select Item--</option>
-                                        @foreach (var item in ViewBag.item)
-                                        {
-                                            <option value="@item.Id">@item.ItemName</option>
-                                        }
-                                    </select>
-                                    @Html.ValidationMessageFor(model => model.ItemId, "", new { @class = "text-danger" })
+                                        <option value="">Select Item</option>
+
+                                    </select><label id="ItemId" style="color: red;"></label>
                                 </div>
                             </div>
 
@@ -131,6 +127,30 @@
                 MediumQuantity: "Please  Enter Medium Curton Number!",
                 SmallQuantity: "Please  Enter Small Curton Number!",
             }
+        });
+
+        $("#CategoryId").change(function () {
+
+            var shopId = $("#CategoryId").val();
+            var jsonData = { deptId: shopId };
+
+            $("#ItemId").empty();
+            $("#ItemId").append('<option value=""> Select Item </option>');
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetItemByCategoryId", "WhIncharge")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(jsonData),
+                dataType: "json",
+                success: function (data) {
+                    // alert("Success");
+                    $.each(data, function (key, value) {
+                        // alert(value.Id + " " + value.CourseCode);
+                        $("#ItemId").append('<option value=' + value.Id + '>' + value.ItemName + '</option>');
+                    });
+                }
+            });
         });
 
     </script>
