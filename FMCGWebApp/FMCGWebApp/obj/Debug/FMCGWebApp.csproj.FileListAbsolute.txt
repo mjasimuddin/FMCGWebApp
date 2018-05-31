@@ -185,6 +185,6 @@ C:\Users\Anwar\Desktop\Jasim Git\FMCGWebApp\FMCGWebApp\FMCGWebApp\bin\Newtonsoft
 C:\Users\Anwar\Desktop\Jasim Git\FMCGWebApp\FMCGWebApp\FMCGWebApp\bin\System.Net.Http.Formatting.xml
 C:\Users\Anwar\Desktop\Jasim Git\FMCGWebApp\FMCGWebApp\FMCGWebApp\bin\System.Web.Http.xml
 C:\Users\Anwar\Desktop\Jasim Git\FMCGWebApp\FMCGWebApp\FMCGWebApp\bin\System.Web.Http.WebHost.xml
+C:\Users\Anwar\Desktop\Jasim Git\FMCGWebApp\FMCGWebApp\FMCGWebApp\obj\Debug\FMCGWebApp.csprojResolveAssemblyReference.cache
 C:\Users\Anwar\Desktop\Jasim Git\FMCGWebApp\FMCGWebApp\FMCGWebApp\obj\Debug\FMCGWebApp.dll
 C:\Users\Anwar\Desktop\Jasim Git\FMCGWebApp\FMCGWebApp\FMCGWebApp\obj\Debug\FMCGWebApp.pdb
-C:\Users\Anwar\Desktop\Jasim Git\FMCGWebApp\FMCGWebApp\FMCGWebApp\obj\Debug\FMCGWebApp.csprojResolveAssemblyReference.cache
