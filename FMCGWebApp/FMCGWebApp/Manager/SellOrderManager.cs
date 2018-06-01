@@ -14,18 +14,25 @@ namespace FMCGWebApp.Manager
 
         public string SendSellOrder(SellOrder sellOrder)
         {
-            if (_sellOrder.IsSellOrderExists(sellOrder))
+            if (_sellOrder.IsItemExists(sellOrder))
             {
-                sellOrder.Id = _sellOrder.GetOrderId(sellOrder);
-                if (_sellOrder.UpdateSendSellOrder(sellOrder) > 0)
+                if (_sellOrder.IsSellOrderExists(sellOrder))
                 {
-                    return "Sell Order Updated!";
-                }
+                    sellOrder.Id = _sellOrder.GetOrderId(sellOrder);
+                    if (_sellOrder.UpdateSendSellOrder(sellOrder) > 0)
+                    {
+                        return "Sell Order Updated!";
+                    }
 
+                }
+                if (_sellOrder.SendSellOrder(sellOrder) > 0)
+                {
+                    return "Sell Order Send!";
+                }
             }
-            if (_sellOrder.SendSellOrder(sellOrder) > 0)
+            else
             {
-                return "Sell Order Send!";
+                return "Sorry! This item are not available";
             }
 
             return "Order Sending Faild";

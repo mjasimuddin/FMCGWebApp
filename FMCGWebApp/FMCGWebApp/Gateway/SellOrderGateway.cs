@@ -235,5 +235,35 @@ namespace FMCGWebApp.Gateway
                 _connection.Close();
             }
         }
+
+        public bool IsItemExists(SellOrder sellOrder)
+        {
+            try
+            {
+                string Query =
+                    "SELECT * FROM tb_StockIn WHERE (CategoryId = @CategoryId and ItemId = @ItemId)";
+                SqlCommand Command = new SqlCommand(Query, _connection);
+                _connection.Open();
+                Command.Parameters.Clear();
+                Command.Parameters.Add("CategoryId", SqlDbType.Int);
+                Command.Parameters["CategoryId"].Value = sellOrder.CategoryId;
+                Command.Parameters.Add("ItemId", SqlDbType.Int);
+                Command.Parameters["ItemId"].Value = sellOrder.ItemId;
+                SqlDataReader Reader = Command.ExecuteReader();
+                Reader.Read();
+                bool isExist = Reader.HasRows;
+                Reader.Close();
+                return isExist;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Unable to connect Server", exception);
+            }
+            finally
+            {
+                _connection.Close();
+            }
+
+        }
     }
 }
