@@ -135,6 +135,12 @@ namespace FMCGWebApp.Controllers
             return View();
         }
 
+        public JsonResult GetMaxLimitAndReorderLevelByItemId(int departmentId)
+        {
+            IEnumerable<StockIn> sellorder = _stockOut.GetMaxLimitAndReorderLevelByItemId(departmentId);
+            return Json(sellorder.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult CompareOrderandStock()
         {
             List<CompareOrderandStock> CompareOrderandStock = _report.GetNeedandStockInfo();

@@ -30,6 +30,11 @@ namespace FMCGWebApp.Manager
         public List<SellOrderInfo> GetAllSellOrder(int id)
         {
             return _stockOut.GetAllSellOrder(id);
+        }
+
+        public List<StockIn> GetMaxLimitAndReorderLevelByItemId(int id)
+        {
+            return _stockOut.GetMaxLimitAndReorderLevelByItemId(id);
         } 
     }
 }

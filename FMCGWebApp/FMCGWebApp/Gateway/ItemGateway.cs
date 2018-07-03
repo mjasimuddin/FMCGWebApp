@@ -17,9 +17,11 @@ WebConfigurationManager.ConnectionStrings["FMCG_Db"].ConnectionString);
         {
             string query = @"INSERT INTO [dbo].[tb_Item]
            ([ItemName]
-           ,[CategoryId])
+           ,[CategoryId]
+           ,[MaxLimit]
+           ,[ReorderLevel])
      VALUES
-           ('" + item.ItemName + "', '" + item.CategoryId + "')";
+           ('" + item.ItemName + "', '" + item.CategoryId + "', '" + item.MaxLimit + "', '" + item.ReorderLevel + "')";
 
             try
             {

@@ -10,5 +10,7 @@ namespace FMCGWebApp.Models
         public int Id { get; set; }
         public string ItemName { get; set; }
         public int CategoryId { get; set; }
+        public int MaxLimit { get; set; }
+        public int ReorderLevel { get; set; }
     }
 }

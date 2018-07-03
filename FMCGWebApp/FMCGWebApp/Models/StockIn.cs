@@ -16,5 +16,7 @@ namespace FMCGWebApp.Models
         public int SmallQuantity { get; set; }
         public DateTime EntryDate { get; set; }
         public int EmployeeId { get; set; }
+        public int? MixLimit { get; set; }
+        public int? ReorderLevel { get; set; }
     }
 }

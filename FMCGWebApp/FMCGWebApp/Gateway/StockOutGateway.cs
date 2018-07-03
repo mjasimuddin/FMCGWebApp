@@ -115,5 +115,40 @@ namespace FMCGWebApp.Gateway
             }
 
         }
+
+        public List<StockIn> GetMaxLimitAndReorderLevelByItemId(int id)
+        {
+
+            string query = @"SELECT i.MaxLimit, i.ReorderLevel
+FROM tb_Item i
+INNER JOIN tb_StockIn s on s.ItemId = i.Id
+WHERE s.ItemId = '" + id +"'";
+            try
+            {
+                SqlCommand command = new SqlCommand(query, _connection);
+                _connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                List<StockIn> maxAndReorderInfos = new List<StockIn>();
+                while (reader.Read())
+                {
+                    StockIn maxAndReorderInfo = new StockIn();
+                    maxAndReorderInfo.MixLimit = (int)reader["MaxLimit"];
+                    maxAndReorderInfo.ReorderLevel = (int) reader["ReorderLevel"];
+                    maxAndReorderInfos.Add(maxAndReorderInfo);
+
+                }
+                reader.Close();
+                return maxAndReorderInfos;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Unable to connect Server", exception);
+            }
+            finally
+            {
+                _connection.Close();
+            }
+
+        }
     }
 }
