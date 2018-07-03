@@ -119,10 +119,9 @@ namespace FMCGWebApp.Gateway
         public List<StockIn> GetMaxLimitAndReorderLevelByItemId(int id)
         {
 
-            string query = @"SELECT i.MaxLimit, i.ReorderLevel
-FROM tb_Item i
-INNER JOIN tb_StockIn s on s.ItemId = i.Id
-WHERE s.ItemId = '" + id +"'";
+            string query = @"SELECT MaxLimit, ReorderLevel
+FROM tb_Item
+WHERE Id = '" + id + "'";
             try
             {
                 SqlCommand command = new SqlCommand(query, _connection);

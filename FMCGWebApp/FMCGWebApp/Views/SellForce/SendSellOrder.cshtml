@@ -1,4 +1,5 @@
-﻿@model FMCGWebApp.Models.SellOrder
+﻿@using FMCGWebApp.Models
+@model FMCGWebApp.Models.SellOrder
 
 @{
     ViewBag.Title = "SendSellOrder";
@@ -33,7 +34,7 @@
                                     @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                                                        
+
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label id="ShowShopId" class="control-label"></label>
@@ -57,17 +58,17 @@
                                     @Html.ValidationMessageFor(model => model.ShopId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label id="ShowItemId" class="control-label"></label>
                                     <select name="ItemId" id="ItemId" class="form-control">
-                                        <option value="">Select Shop</option>
+                                        <option value="">Select Item </option>
 
                                     </select><label id="ItemId" style="color: red;"></label>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label id="ShowQuentity"></label>
@@ -91,6 +92,74 @@
     </div>
 </div>
 
+
+<div id="page-wrapper">
+    <table id="showAllOrdered" class="table table-striped table-bordered" style="width: 100%">
+        <thead>
+            <tr>
+                <th style="text-align: center; color: green">
+                    @Html.DisplayName("Serial Number")
+                </th>
+                <th style="text-align: center; color: green">
+                    @Html.DisplayName("Shop Name")
+                </th>
+                <th style="text-align: center; color: green">
+                    @Html.DisplayName("Category Name")
+                </th>
+                <th style="text-align: center; color: green">
+                    @Html.DisplayName("Item Name")
+                </th>
+                <th style="text-align: center; color: green">
+                    @Html.DisplayName("Quantity")
+                </th>
+                <th style="text-align: center; color: green">
+                    @Html.DisplayName("Remove")
+                </th>
+            </tr>
+        </thead>
+
+        <div>
+            <h3 style="text-align: center;margin-top: 80px">Compare Order and Stock</h3>
+
+        </div>
+        <tbody>
+            @foreach (var item in ViewBag.orderLists)
+            {
+                <tr>
+
+                    <td style="text-align: center; color: black">
+                        @item.Id
+                    </td>
+                    <td style="text-align: center; color: black">
+                        @item.ShopName
+                    </td>
+                    <td style="text-align: center; color: black">
+                        @item.CategoryName
+                    </td>
+                    <td style="text-align: center; color: black">
+                        @item.ItemName
+                    </td>
+                    <td style="text-align: center; color: black">
+                        @item.Quentity
+                    </td>
+                    <td style="text-align: center; color: black">
+                        @Html.ActionLink("Remove", "", "")
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <div class="form-group">
+        <div class="col-md-4">
+            <button class="btn btn-success btn-block"> @Html.ActionLink("Send Order", "SendOrder", "SellForce") </button>
+        </div>
+    </div>
+
+</div>
+<div style="margin-bottom: 350px"></div>
 
 
 @section Scripts {

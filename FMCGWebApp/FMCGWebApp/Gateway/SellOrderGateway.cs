@@ -265,5 +265,145 @@ namespace FMCGWebApp.Gateway
             }
 
         }
+
+        public List<SellOrder> GetAllSellOrder()
+        {
+            string query = @"SELECT [AreaId]
+      ,[ShopId]
+      ,[CategoryId]
+      ,[ItemId]
+      ,[Quentity]
+  FROM [dbo].[AddToSendOrder]";
+            try
+            {
+                SqlCommand command = new SqlCommand(query, _connection);
+                _connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                List<SellOrder> itemList = new List<SellOrder>();
+                while (dr.Read())
+                {
+                    SellOrder item = new SellOrder();
+                    item.AreaId = (int)dr["AreaId"];
+                    item.ShopId = (int)dr["ShopId"];
+                    item.CategoryId = (int)dr["CategoryId"];
+                    item.ItemId = (int)dr["ItemId"];
+                    item.Quantity = (int)dr["Quentity"];
+                    itemList.Add(item);
+                }
+                dr.Close();
+                return itemList;
+            }
+            catch (Exception exception)
+            {
+
+                throw new Exception("Unable to connect Server", exception);
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
+
+        public int ClearHistory()
+        {
+            string query = @"DELETE FROM [dbo].[AddToSendOrder]";
+
+            try
+            {
+                SqlCommand command = new SqlCommand(query, _connection);
+                _connection.Open();
+                int rowAffected = command.ExecuteNonQuery();
+                _connection.Close();
+
+                return rowAffected;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Unable to connect Server", exception);
+            }
+            finally
+            {
+                _connection.Close();
+            }
+
+
+        }
+
+        public int AddSellOrder(SellOrder sellOrder)
+        {
+            string query = @"INSERT INTO [dbo].[AddToSendOrder]
+           ([AreaId]
+           ,[ShopId]
+           ,[CategoryId]
+           ,[ItemId]
+           ,[Quentity])
+     VALUES
+           ('" + sellOrder.AreaId + "', '" + sellOrder.ShopId + "', '" + sellOrder.CategoryId + "', '" +
+                           sellOrder.ItemId + "', '" + sellOrder.Quantity + "')";
+
+            try
+            {
+                SqlCommand command = new SqlCommand(query, _connection);
+                _connection.Open();
+                int rowAffected = command.ExecuteNonQuery();
+                _connection.Close();
+
+                return rowAffected;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Unable to connect Server", exception);
+            }
+            finally
+            {
+                _connection.Close();
+            }
+
+
+        }
+
+        public List<SellOrderInfo> GetAllOrder()
+        {
+            string query = @"Select o.Quentity, a.AreaName, s.ShopName, c.CategoryName, i.ItemName
+FROM AddToSendOrder o
+INNER JOIN tb_Area a on o.AreaId = a.Id
+INNER JOIN tb_ShopInfo s on o.ShopId = s.Id
+INNER JOIN tb_Category c on o.CategoryId = c.Id
+INNER JOIN tb_Item i on o.ItemId = i.Id";
+            try
+            {
+                SqlCommand command = new SqlCommand(query, _connection);
+                _connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                List<SellOrderInfo> itemList = new List<SellOrderInfo>();
+                int number = 1;
+                while (dr.Read())
+                {
+                    SellOrderInfo item = new SellOrderInfo();
+                    item.Id = number;
+                    item.AreaName = dr["AreaName"].ToString();
+                    item.ShopName = dr["ShopName"].ToString();
+                    item.CategoryName = dr["CategoryName"].ToString();
+                    item.ItemName = dr["ItemName"].ToString();
+                    item.Quentity = (int)dr["Quentity"];
+                    itemList.Add(item);
+                    number++;
+                }
+                dr.Close();
+                return itemList;
+            }
+            catch (Exception exception)
+            {
+
+                throw new Exception("Unable to connect Server", exception);
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
+
+
+
     }
 }

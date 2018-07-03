@@ -48,9 +48,14 @@ namespace FMCGWebApp.Controllers
             }
             if (UserTypeId == 4)
             {
+                List<SellOrderInfo> sellOrders = new List<SellOrderInfo>()
+                {
+                    new SellOrderInfo(){Id = 0, AreaName = "Null", CategoryName = "Null", ItemName = "Null", ShopName = "Null", Quentity = 0}
+                };
+                ViewBag.orderLists = sellOrders;
                 ViewBag.area = _shopInfo.GetAreaList();
                 ViewBag.category = _sellOrder.GetAllCategory();
-              //  ViewBag.item = _sellOrder.GetAllItem();
+                //  ViewBag.item = _sellOrder.GetAllItem();
 
                 return View();
             }
@@ -67,24 +72,49 @@ namespace FMCGWebApp.Controllers
             sellOrder.Status = "Ordered";
             sellOrder.EmployeeId = (int)Session["user"];
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            _sellOrder.AddSellOrder(sellOrder);
 
-                    ViewBag.ShowMsg = _sellOrder.SendSellOrder(sellOrder);
+            var sellOrders = _sellOrder.GetAllOrder();
 
-                }
-                catch (Exception exception)
-                {
-                    ViewBag.ShowMsg = exception.Message;
-                }
-            }
 
             ViewBag.area = _shopInfo.GetAreaList();
             ViewBag.category = _sellOrder.GetAllCategory();
-           // ViewBag.item = _sellOrder.GetAllItem();
+            ViewBag.orderLists = sellOrders;
+            // ViewBag.item = _sellOrder.GetAllItem();
             return View();
+        }
+
+        public ActionResult SendOrder(SellOrder sellOrder)
+        {
+
+            var sendSellOrders = _sellOrder.GetAllSellOrder();
+
+            try
+            {
+                foreach (var order in sendSellOrders)
+                {
+                    sellOrder.EntryDate = DateTime.Now;
+                    sellOrder.Status = "Ordered";
+                    sellOrder.EmployeeId = (int)Session["user"];
+                    sellOrder.AreaId = order.AreaId;
+                    sellOrder.ShopId = order.ShopId;
+                    sellOrder.CategoryId = order.CategoryId;
+                    sellOrder.ItemId = order.ItemId;
+                    sellOrder.Quantity = order.Quantity;
+
+                    _sellOrder.SendSellOrder(sellOrder);
+                }
+
+                _sellOrder.ClearHistory();
+
+            }
+            catch (Exception exception)
+            {
+                ViewBag.ShowMsg = exception.Message;
+            }
+
+
+            return RedirectToAction("SendSellOrder");
         }
 
         public JsonResult GetShopByAreaId(int deptId)

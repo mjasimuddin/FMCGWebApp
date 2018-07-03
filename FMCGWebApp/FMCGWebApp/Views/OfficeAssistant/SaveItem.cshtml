@@ -1,4 +1,5 @@
-﻿@model FMCGWebApp.Models.Item
+﻿@using System.Web.UI.WebControls
+@model FMCGWebApp.Models.Item
 
 @{
     ViewBag.Title = "SaveItem";
@@ -46,6 +47,24 @@
                             </div>
 
                             <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowMaxLimit"></label>
+                                    <input type="text" id="MaxLimit" name="MaxLimit" class="ggg" placeholder="Enter Max Limit" />
+                                    @*@Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "ggg", PlaceHolder = "Enter Item Name" } })*@
+                                    @Html.ValidationMessageFor(model => model.MaxLimit, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label id="ShowReorderLevel"></label>
+                                    <input type="text" id="ReorderLevel" name="ReorderLevel" class="ggg" placeholder="Enter Reorder Level" />
+                                    @*@Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "ggg", PlaceHolder = "Enter Item Name" } })*@
+                                    @Html.ValidationMessageFor(model => model.ReorderLevel, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <div class="col-md-4">
                                     <input type="submit" value="Save" class="btn btn-success btn-block" />
                                 </div>
@@ -72,6 +91,12 @@
             });
             $("#ItemName").click(function () {
                 $("#ShowItemName").text("Item Name");
+            });
+            $("#MaxLimit").click(function () {
+                $("#ShowMaxLimit").text("Max Limit (Optional)");
+            });
+            $("#ReorderLevel").click(function () {
+                $("#ShowReorderLevel").text("Reorder Level (Optional)");
             });
         });
 

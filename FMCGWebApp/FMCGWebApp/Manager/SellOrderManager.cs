@@ -50,5 +50,25 @@ namespace FMCGWebApp.Manager
         {
             return _sellOrder.GetAllItem(id);
         }
+
+        public List<SellOrderInfo> GetAllOrder()
+        {
+            return _sellOrder.GetAllOrder();
+        }
+
+        public int AddSellOrder(SellOrder sellOrder)
+        {
+            return _sellOrder.AddSellOrder(sellOrder);
+        }
+
+        public List<SellOrder> GetAllSellOrder()
+        {
+            return _sellOrder.GetAllSellOrder();
+        }
+
+        public int ClearHistory()
+        {
+            return _sellOrder.ClearHistory();
+        }
     }
 }
