@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using FMCGWebApp.Manager;
 using FMCGWebApp.Models;
 using FMCGWebApp.ViewModels;
+using Newtonsoft.Json;
 
 namespace FMCGWebApp.Controllers
 {
     public class AdminController : Controller
     {
         // GET: Admin
-        private CategoryManager _category = new CategoryManager();
         private ItemManager _item = new ItemManager();
         private WhouseinfoManager _whouseinfo = new WhouseinfoManager();
         private EmployeeManager _employee = new EmployeeManager();
@@ -65,19 +68,22 @@ namespace FMCGWebApp.Controllers
         [HttpPost]
         public ActionResult SaveCategory(Category category)
         {
-            if (ModelState.IsValid)
+            using (var client = new HttpClient())
             {
-                try
+                client.BaseAddress = new Uri("http://localhost:32331");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var response = client.PostAsJsonAsync("api/Category/PostCategory", category).Result;
+                if (response.IsSuccessStatusCode)
                 {
+                    string msg = response.Content.ReadAsStringAsync().Result;
+                    var records = JsonConvert.DeserializeObject(msg); //  JSON.Net
 
-                    ViewBag.ShowMsg = _category.SaveCategory(category);
-
-                }
-                catch (Exception exception)
-                {
-                    ViewBag.ShowMsg = exception.Message;
+                    ViewBag.ShowMsg = records;
                 }
             }
+
+
 
             return View();
         }
@@ -102,7 +108,30 @@ namespace FMCGWebApp.Controllers
             }
             if (UserTypeId == 1)
             {
-                ViewBag.categorys = _item.GetAllCategory();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://localhost:32331");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage response = client.GetAsync("api/Item/").Result;
+                    string res = "";
+                    using (HttpContent content = response.Content)
+                    {
+                        // ... Read the string.
+                        Task<string> result = content.ReadAsStringAsync();
+                        res = result.Result;
+
+                        var records = JsonConvert.DeserializeObject<List<Category>>(res); //  JSON.Net
+
+                        foreach (Category record in records)
+                        {
+                            var category = (string.Format("Id: {0}, CategoryName: {1}", record.Id, record.CategoryName));
+                        }
+
+
+                        ViewBag.categorys = records;
+                    }
+                }
                 return View();
             }
             else
@@ -115,21 +144,44 @@ namespace FMCGWebApp.Controllers
         [HttpPost]
         public ActionResult SaveItem(Item item)
         {
-            if (ModelState.IsValid)
+            using (var client = new HttpClient())
             {
-                try
+                client.BaseAddress = new Uri("http://localhost:32331");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var response = client.PostAsJsonAsync("api/Item/PostItem", item).Result;
+
+                if (response.IsSuccessStatusCode)
                 {
-
-                    ViewBag.ShowMsg = _item.SaveItem(item);
-
+                    string msg = response.Content.ReadAsStringAsync().Result;
+                    var records = JsonConvert.DeserializeObject(msg); //  JSON.Net
+                    ViewBag.ShowMsg = records;
                 }
-                catch (Exception exception)
+            }
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:32331");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("api/Item/").Result;
+                string res = "";
+                using (HttpContent content = response.Content)
                 {
-                    ViewBag.ShowMsg = exception.Message;
+                    // ... Read the string.
+                    Task<string> result = content.ReadAsStringAsync();
+                    res = result.Result;
+
+                    var records = JsonConvert.DeserializeObject<List<Category>>(res); //  JSON.Net
+
+                    foreach (Category record in records)
+                    {
+                        var category = (string.Format("Id: {0}, CategoryName: {1}", record.Id, record.CategoryName));
+                    }
+
+                    ViewBag.categorys = records;
                 }
             }
 
-            ViewBag.categorys = _item.GetAllCategory();
             return View();
         }
 

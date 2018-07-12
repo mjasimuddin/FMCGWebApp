@@ -123,6 +123,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\OfficeAssistantController.cs" />
     <Compile Include="Controllers\SellForceController.cs" />
     <Compile Include="Controllers\WhInchargeController.cs" />
@@ -269,7 +271,9 @@
     <Content Include="theme\typography.html" />
     <Content Include="theme\vector_map.html" />
     <Content Include="theme\w3layouts-License.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
